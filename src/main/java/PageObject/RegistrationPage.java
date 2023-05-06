@@ -1,10 +1,8 @@
-package pages;
+package PageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class RegistrationPage {
     private WebDriver driver;
@@ -29,7 +27,8 @@ public class RegistrationPage {
 
         driver.findElement(emailField).sendKeys(email);
     }
-    public void getLogInPage(){
+
+    public void getLogInPage() {
         driver.findElement(logInRegistrationPageButton).click();
     }
 

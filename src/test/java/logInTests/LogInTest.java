@@ -2,25 +2,26 @@ package logInTests;
 
 import UserData.User;
 import UserData.UserCreds;
-import UserData.UserGenerator;
+import UserData.UserCreator;
 import api.Request;
 import api.TokenModel;
+import api.UserDataCreation;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.LogInPage;
-import pages.MainPage;
-import pages.RegistrationPage;
+import PageObject.LogInPage;
+import PageObject.MainPage;
+import PageObject.RegistrationPage;
 
 import static config.AppConfig.MAIN_PAGE_URL;
 import static config.AppConfig.REG_URL;
 
-public class LogInTests {
+public class LogInTest {
     private User user;
-    private UserGenerator userGenerator;
+    private UserCreator userCreator;
     private UserCreds userCreds;
     private String name;
     private String email;
@@ -29,21 +30,22 @@ public class LogInTests {
 
     @Before
     public void setUp() {
-        name = UserGenerator.name;
-        email = UserGenerator.email;
-        password = UserGenerator.password;
+        name = UserDataCreation.name;
+        email = UserDataCreation.email;
+        password = UserDataCreation.password;
         user = new User(name, email, password);
-        userGenerator = new UserGenerator();
+        userCreator = new UserCreator();
         userCreds = new UserCreds(email, password);
-        userGenerator
+        userCreator
                 .create(user);
     }
 
     @After
     public void tearDown() {
         TokenModel tokenResponse = Request.requestUserToken(userCreds);
-        userGenerator
+        userCreator
                 .delete(user, tokenResponse);
+        driver.quit();
     }
 
     @DisplayName("Login with button Войти в аккаунт")
@@ -55,7 +57,7 @@ public class LogInTests {
         LogInPage userLogIn = new LogInPage(driver);
         page.getLoginPageByClickingEnterAccountButton();
         userLogIn.login(email, password);
-//        userLogIn.checkForUrl(MAIN_PAGE_URL);
+        userLogIn.checkForUrl(MAIN_PAGE_URL);
     }
 
     @DisplayName("Login with button Личный Кабинет")
@@ -67,6 +69,7 @@ public class LogInTests {
         LogInPage userLogIn = new LogInPage(driver);
         mainPage.getLoginPageByClickingUserCabinetArea();
         userLogIn.login(email, password);
+        userLogIn.checkForUrl(MAIN_PAGE_URL);
     }
 
     @DisplayName("Login with button Войти from register page")
@@ -78,11 +81,21 @@ public class LogInTests {
         RegistrationPage regPage = new RegistrationPage(driver);
         regPage.getLogInPage();
         userLogIn.login(email, password);
+        userLogIn.checkForUrl(MAIN_PAGE_URL);
     }
 
+    @DisplayName("Login with button Войти from forgot-password page")
     @Test
-    public void loginFromForgotPasswordPageTest(){
-
+    public void loginFromForgotPasswordPageTest() {
+        driver = new ChromeDriver();
+        driver.get(MAIN_PAGE_URL);
+        MainPage mainPage = new MainPage(driver);
+        LogInPage userLogIn = new LogInPage(driver);
+        mainPage.getLoginPageByClickingUserCabinetArea();
+        userLogIn.getForgotPasswordPage();
+        userLogIn.getLoginPageFromForgotPassword();
+        userLogIn.login(email, password);
+        userLogIn.checkForUrl(MAIN_PAGE_URL);
     }
 
 }

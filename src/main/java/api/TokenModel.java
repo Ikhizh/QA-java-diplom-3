@@ -6,8 +6,7 @@ public class TokenModel {
     private boolean success;
     private String accessToken;
     private String refreshToken;
-    private User user;
-
+    private CreatedUser user;
     public boolean isSuccess() {
         return success;
     }
@@ -32,11 +31,11 @@ public class TokenModel {
         this.refreshToken = refreshToken;
     }
 
-    public User getUser() {
+    public CreatedUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(CreatedUser user) {
         this.user = user;
     }
 }

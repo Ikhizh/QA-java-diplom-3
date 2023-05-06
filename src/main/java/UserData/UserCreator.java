@@ -2,24 +2,18 @@ package UserData;
 
 import api.TokenModel;
 import api.Utils;
-import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
 
 
-public class UserGenerator {
-    static Faker faker = new Faker();
-
-    public static String name = faker.name().name();
-    public static String email = faker.internet().emailAddress();
-    public static String password = faker.internet().password();
+public class UserCreator {
     public static final String BASE_URI = "https://stellarburgers.nomoreparties.site/";
     private static final String REGISTER_PATH = "api/auth/register";
     private static final String LOGIN_PATH = "api/auth/login";
 
-    public UserGenerator() {
+    public UserCreator() {
         RestAssured.baseURI = BASE_URI;
     }
 
@@ -33,7 +27,7 @@ public class UserGenerator {
                 .then();
     }
 
-    public ValidatableResponse login(User creds) {
+    public ValidatableResponse login(UserCreds creds) {
         return given()
                 .header("Content-type", "application/json")
                 .and()
@@ -53,4 +47,5 @@ public class UserGenerator {
                 .then()
                 .statusCode(202);
     }
+
 }

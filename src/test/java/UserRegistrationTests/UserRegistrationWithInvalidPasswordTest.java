@@ -1,12 +1,12 @@
 package UserRegistrationTests;
 
-import UserData.UserGenerator;
+import api.UserDataCreation;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.RegistrationPage;
+import PageObject.RegistrationPage;
 
 import static config.AppConfig.REG_URL;
 
@@ -25,10 +25,10 @@ public class UserRegistrationWithInvalidPasswordTest {
     }
 
     @Test
-    public void registrationWithInvalidPasswordShowsError(){
+    public void registrationWithInvalidPasswordShowsError() {
         RegistrationPage user = new RegistrationPage(driver);
-        String name = UserGenerator.name;
-        String email = UserGenerator.email;
+        String name = UserDataCreation.name;
+        String email = UserDataCreation.email;
         user.setNameField(name);
         user.setEmailField(email);
         user.setInvalidPassword();
