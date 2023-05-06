@@ -6,12 +6,12 @@ import UserData.UserCreds;
 import api.Request;
 import api.TokenModel;
 import api.UserDataCreation;
+import driver.WebDriverFactory;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import PageObject.LogInPage;
 import PageObject.MainPage;
 import PageObject.ProfilePage;
@@ -35,7 +35,7 @@ public class ProfilePageTest {
         user = new User(name, email, password);
         userCreator = new UserCreator();
         userCreds = new UserCreds(email, password);
-        driver = new ChromeDriver();
+        driver = WebDriverFactory.get();
         driver.get(MAIN_PAGE_URL);
         userCreator
                 .create(user);

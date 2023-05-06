@@ -46,6 +46,11 @@
             <artifactId>allure-rest-assured</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.64</version>
+        </dependency>
     </dependencies>
 
     <properties>

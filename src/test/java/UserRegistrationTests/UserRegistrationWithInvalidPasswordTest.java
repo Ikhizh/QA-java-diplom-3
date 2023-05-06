@@ -1,6 +1,7 @@
 package UserRegistrationTests;
 
 import api.UserDataCreation;
+import driver.WebDriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class UserRegistrationWithInvalidPasswordTest {
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        driver = WebDriverFactory.get();
         driver.get(REG_URL);
     }
 

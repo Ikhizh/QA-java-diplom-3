@@ -1,11 +1,11 @@
 package mainPageTests;
 
+import driver.WebDriverFactory;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import PageObject.MainPage;
 
 import static config.AppConfig.MAIN_PAGE_URL;
@@ -16,7 +16,7 @@ public class MainPageTest {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        driver = WebDriverFactory.get();
         driver.get(MAIN_PAGE_URL);
     }
 

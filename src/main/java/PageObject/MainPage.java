@@ -28,6 +28,9 @@ public class MainPage {
     }
 
     public void getLoginPageByClickingUserCabinetArea() {
+        new WebDriverWait(driver, 3).until(driver -> (driver.findElement(userCabinetArea).getText() != null
+                && !driver.findElement(userCabinetArea).getText().isEmpty()));
+        driver.findElement(userCabinetArea).isDisplayed();
         driver.findElement(userCabinetArea).click();
     }
 
@@ -38,7 +41,7 @@ public class MainPage {
     }
 
     public void clickOnHomePageLocator(By locator) {
-        new WebDriverWait(driver, 3)
+        new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
         driver.findElement(locator).click();
     }

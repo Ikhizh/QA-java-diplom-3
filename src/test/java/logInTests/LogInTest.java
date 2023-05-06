@@ -6,12 +6,12 @@ import UserData.UserCreator;
 import api.Request;
 import api.TokenModel;
 import api.UserDataCreation;
+import driver.WebDriverFactory;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import PageObject.LogInPage;
 import PageObject.MainPage;
 import PageObject.RegistrationPage;
@@ -38,6 +38,7 @@ public class LogInTest {
         userCreds = new UserCreds(email, password);
         userCreator
                 .create(user);
+        driver = WebDriverFactory.get();
     }
 
     @After
@@ -51,7 +52,6 @@ public class LogInTest {
     @DisplayName("Login with button Войти в аккаунт")
     @Test
     public void loginWithLoginButtonTest() {
-        driver = new ChromeDriver();
         driver.get(MAIN_PAGE_URL);
         MainPage page = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);
@@ -63,7 +63,6 @@ public class LogInTest {
     @DisplayName("Login with button Личный Кабинет")
     @Test
     public void loginWithProfileButtonTest() {
-        driver = new ChromeDriver();
         driver.get(MAIN_PAGE_URL);
         MainPage mainPage = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);
@@ -75,7 +74,6 @@ public class LogInTest {
     @DisplayName("Login with button Войти from register page")
     @Test
     public void loginFromRegisterPageTest() {
-        driver = new ChromeDriver();
         driver.get(REG_URL);
         LogInPage userLogIn = new LogInPage(driver);
         RegistrationPage regPage = new RegistrationPage(driver);
@@ -87,7 +85,6 @@ public class LogInTest {
     @DisplayName("Login with button Войти from forgot-password page")
     @Test
     public void loginFromForgotPasswordPageTest() {
-        driver = new ChromeDriver();
         driver.get(MAIN_PAGE_URL);
         MainPage mainPage = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);

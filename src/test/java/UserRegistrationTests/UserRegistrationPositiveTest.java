@@ -6,6 +6,7 @@ import UserData.UserCreds;
 import api.Request;
 import api.TokenModel;
 import api.UserDataCreation;
+import driver.WebDriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class UserRegistrationPositiveTest {
 
     @Before
     public void setup() {
-        driver = new ChromeDriver();
+        driver = WebDriverFactory.get();
         driver.get(REG_URL);
     }
 

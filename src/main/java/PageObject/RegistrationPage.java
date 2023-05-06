@@ -2,6 +2,7 @@ package PageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegistrationPage {
@@ -29,6 +30,9 @@ public class RegistrationPage {
     }
 
     public void getLogInPage() {
+        new WebDriverWait(driver, 3).until(driver -> (driver.findElement(logInRegistrationPageButton).getText() != null
+                && !driver.findElement(logInRegistrationPageButton).getText().isEmpty()));
+        driver.findElement(logInRegistrationPageButton).isDisplayed();
         driver.findElement(logInRegistrationPageButton).click();
     }
 
