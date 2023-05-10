@@ -1,7 +1,8 @@
 package api;
 
-import UserData.UserCreds;
+import userdata.UserCreds;
 
+import static config.AppConfig.LOGIN_PATH_API;
 import static io.restassured.RestAssured.given;
 
 
@@ -10,7 +11,7 @@ public class Request {
         return given()
                 .header("Content-type", "application/json")
                 .body(userCreds)
-                .post("api/auth/login")
+                .post(LOGIN_PATH_API)
                 .body().as(TokenModel.class);
     }
 }

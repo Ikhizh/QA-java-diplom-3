@@ -1,8 +1,8 @@
-package PageObject;
+package page_object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegistrationPage {
@@ -29,6 +29,7 @@ public class RegistrationPage {
         driver.findElement(emailField).sendKeys(email);
     }
 
+    @Step("Check that user was moved to login page")
     public void getLogInPage() {
         new WebDriverWait(driver, 3).until(driver -> (driver.findElement(logInRegistrationPageButton).getText() != null
                 && !driver.findElement(logInRegistrationPageButton).getText().isEmpty()));
@@ -40,18 +41,16 @@ public class RegistrationPage {
         driver.findElement(passwordField).sendKeys(password);
     }
 
-    public void setInvalidPassword() {
-        driver.findElement(passwordField).sendKeys("12345");
-    }
-
     public void clickRegistrationButton() {
         driver.findElement(registrationButton).click();
     }
 
+    @Step("Check that 'Некорректный пароль' message appeared")
     public void checkIncorrectPasswordMessageAppeared() {
         driver.findElement(incorrectPasswordMessage).isDisplayed();
     }
 
+    @Step("Check that user was registered")
     public void checkThatUserRegistered() {
         driver.findElement(logInButton).isDisplayed();
     }
@@ -62,6 +61,7 @@ public class RegistrationPage {
         driver.findElement(logInButton).isDisplayed();
     }
 
+    @Step("Register new user")
     public void registerNewUser(String name, String email, String password) {
         setNameField(name);
         setEmailField(email);

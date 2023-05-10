@@ -1,4 +1,4 @@
-package UserData;
+package userdata;
 
 public class UserCreds {
     private String email;

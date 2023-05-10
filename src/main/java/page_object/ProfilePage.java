@@ -1,5 +1,6 @@
-package PageObject;
+package page_object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,12 +19,8 @@ public class ProfilePage {
     public By logoLink = By.xpath(".//div/a[@href='/']");
     public By logoutButton = By.xpath(".//button[text() = 'Выход']");
 
-    public void clickOnProfilePageLocator(By locator) {
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOfElementLocated(locator));
-        driver.findElement(locator).click();
-    }
 
+    @Step("Check for {url}")
     public void checkForUrl(String url) {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.urlToBe(url));
@@ -35,10 +32,12 @@ public class ProfilePage {
         driver.findElement(constructorLink).click();
     }
 
+    @Step("Click logo link")
     public void clickLogoLink() {
         driver.findElement(logoLink).click();
     }
 
+    @Step("Click on log out button")
     public void clickLogoutButton() {
         driver.findElement(logoutButton).click();
     }

@@ -1,8 +1,8 @@
-package logInTests;
+package logIn_tests;
 
-import UserData.User;
-import UserData.UserCreds;
-import UserData.UserCreator;
+import userdata.User;
+import userdata.UserCreds;
+import userdata.UserRequests;
 import api.Request;
 import api.TokenModel;
 import api.UserDataCreation;
@@ -12,16 +12,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import PageObject.LogInPage;
-import PageObject.MainPage;
-import PageObject.RegistrationPage;
+import page_object.LogInPage;
+import page_object.MainPage;
+import page_object.RegistrationPage;
 
-import static config.AppConfig.MAIN_PAGE_URL;
+import static config.AppConfig.BASE_URL;
 import static config.AppConfig.REG_URL;
 
 public class LogInTest {
     private User user;
-    private UserCreator userCreator;
+    private UserRequests userCreator;
     private UserCreds userCreds;
     private String name;
     private String email;
@@ -34,7 +34,7 @@ public class LogInTest {
         email = UserDataCreation.email;
         password = UserDataCreation.password;
         user = new User(name, email, password);
-        userCreator = new UserCreator();
+        userCreator = new UserRequests();
         userCreds = new UserCreds(email, password);
         userCreator
                 .create(user);
@@ -44,34 +44,36 @@ public class LogInTest {
     @After
     public void tearDown() {
         TokenModel tokenResponse = Request.requestUserToken(userCreds);
-        userCreator
-                .delete(user, tokenResponse);
+        if (tokenResponse.getAccessToken() != null) {
+            userCreator
+                    .delete(user, tokenResponse);
+        }
         driver.quit();
     }
 
-    @DisplayName("Login with button Войти в аккаунт")
+    @DisplayName("Login with button 'Войти в аккаунт'")
     @Test
     public void loginWithLoginButtonTest() {
-        driver.get(MAIN_PAGE_URL);
+        driver.get(BASE_URL);
         MainPage page = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);
         page.getLoginPageByClickingEnterAccountButton();
         userLogIn.login(email, password);
-        userLogIn.checkForUrl(MAIN_PAGE_URL);
+        userLogIn.checkForUrl(BASE_URL);
     }
 
-    @DisplayName("Login with button Личный Кабинет")
+    @DisplayName("Login with button 'Личный Кабинет'")
     @Test
     public void loginWithProfileButtonTest() {
-        driver.get(MAIN_PAGE_URL);
+        driver.get(BASE_URL);
         MainPage mainPage = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);
         mainPage.getLoginPageByClickingUserCabinetArea();
         userLogIn.login(email, password);
-        userLogIn.checkForUrl(MAIN_PAGE_URL);
+        userLogIn.checkForUrl(BASE_URL);
     }
 
-    @DisplayName("Login with button Войти from register page")
+    @DisplayName("Login with button 'Войти' from register page")
     @Test
     public void loginFromRegisterPageTest() {
         driver.get(REG_URL);
@@ -79,20 +81,20 @@ public class LogInTest {
         RegistrationPage regPage = new RegistrationPage(driver);
         regPage.getLogInPage();
         userLogIn.login(email, password);
-        userLogIn.checkForUrl(MAIN_PAGE_URL);
+        userLogIn.checkForUrl(BASE_URL);
     }
 
-    @DisplayName("Login with button Войти from forgot-password page")
+    @DisplayName("Login with button 'Войти' from forgot-password page")
     @Test
     public void loginFromForgotPasswordPageTest() {
-        driver.get(MAIN_PAGE_URL);
+        driver.get(BASE_URL);
         MainPage mainPage = new MainPage(driver);
         LogInPage userLogIn = new LogInPage(driver);
         mainPage.getLoginPageByClickingUserCabinetArea();
         userLogIn.getForgotPasswordPage();
         userLogIn.getLoginPageFromForgotPassword();
         userLogIn.login(email, password);
-        userLogIn.checkForUrl(MAIN_PAGE_URL);
+        userLogIn.checkForUrl(BASE_URL);
     }
 
 }

@@ -1,12 +1,11 @@
 package api;
 
-import UserData.User;
-
 public class TokenModel {
     private boolean success;
     private String accessToken;
     private String refreshToken;
     private CreatedUser user;
+
     public boolean isSuccess() {
         return success;
     }

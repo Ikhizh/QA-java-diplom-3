@@ -1,5 +1,6 @@
-package PageObject;
+package page_object;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,6 +33,7 @@ public class LogInPage {
         driver.findElement(logInButton).click();
     }
 
+    @Step("Check for {url}")
     public void checkForUrl(String url) {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.urlToBe(url));
@@ -39,14 +41,17 @@ public class LogInPage {
         assertEquals(String.format("Адрес страницы должен быть %s", url), url, currentUrl);
     }
 
+    @Step("Click to forgot password page from login page")
     public void getForgotPasswordPage() {
         driver.findElement(forgotPasswordLink).click();
     }
 
+    @Step("Click to forgot password from forgot password page")
     public void getLoginPageFromForgotPassword() {
         driver.findElement(logInLinkOnForgotPassword).click();
     }
 
+    @Step("user Set fields and login")
     public void login(String email, String password) {
         setEmailField(email);
         setPassword(password);

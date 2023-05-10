@@ -1,8 +1,8 @@
-package profilePageTests;
+package profile_page_tests;
 
-import UserData.User;
-import UserData.UserCreator;
-import UserData.UserCreds;
+import userdata.User;
+import userdata.UserRequests;
+import userdata.UserCreds;
 import api.Request;
 import api.TokenModel;
 import api.UserDataCreation;
@@ -12,15 +12,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import PageObject.LogInPage;
-import PageObject.MainPage;
-import PageObject.ProfilePage;
+import page_object.LogInPage;
+import page_object.MainPage;
+import page_object.ProfilePage;
 
 import static config.AppConfig.*;
 
 public class ProfilePageTest {
     private User user;
-    private UserCreator userCreator;
+    private UserRequests userCreator;
     private UserCreds userCreds;
     private String name;
     private String email;
@@ -33,10 +33,10 @@ public class ProfilePageTest {
         email = UserDataCreation.email;
         password = UserDataCreation.password;
         user = new User(name, email, password);
-        userCreator = new UserCreator();
+        userCreator = new UserRequests();
         userCreds = new UserCreds(email, password);
         driver = WebDriverFactory.get();
-        driver.get(MAIN_PAGE_URL);
+        driver.get(BASE_URL);
         userCreator
                 .create(user);
     }
@@ -71,7 +71,7 @@ public class ProfilePageTest {
         userLogIn.login(email, password);
         mainPage.getLoginPageByClickingUserCabinetArea();
         profilePage.clickConstructorLink();
-        profilePage.checkForUrl(MAIN_PAGE_URL);
+        profilePage.checkForUrl(BASE_URL);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ProfilePageTest {
         userLogIn.login(email, password);
         mainPage.getLoginPageByClickingUserCabinetArea();
         profilePage.clickLogoLink();
-        profilePage.checkForUrl(MAIN_PAGE_URL);
+        profilePage.checkForUrl(BASE_URL);
     }
 
     @Test
